@@ -2,6 +2,7 @@ package com.capibaras.bottomline.controllers;
 
 import com.capibaras.bottomline.models.Employee;
 import com.capibaras.bottomline.services.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
+    @Autowired
     private EmployeeService employeeService;
 
     @GetMapping("/index")
