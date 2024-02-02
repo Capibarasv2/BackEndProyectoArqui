@@ -15,17 +15,6 @@ import java.util.Set;
 @Entity(name = "products")
 public class Product {
 
-//    id int [PK]
-//    name varchar
-//    description varchar
-//    category varchar
-//    serial_number datetime
-//    purchase_price decimal
-//    sale_price decimal
-//    quantity_available int
-//    product_thumbnail varchar
-//    product_state ENUM('activo', 'inactivo', 'en espera')
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
