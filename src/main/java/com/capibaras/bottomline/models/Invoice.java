@@ -23,6 +23,13 @@ public class Invoice {
     private String invoice_date;
     private double total_amount;
 
+    @OneToMany(cascade =
+            CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true,
+            mappedBy = "invoice")
+    private Set<Transaction> transactions;
+
     @ManyToMany(mappedBy = "invoices_for_product")
     Set<Product> products_in_invoice;
 

@@ -22,12 +22,10 @@ public class Transaction {
     private String bank_name;
     private float amount;
 
-    /*
+
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
-
-    */
 
 
 }
