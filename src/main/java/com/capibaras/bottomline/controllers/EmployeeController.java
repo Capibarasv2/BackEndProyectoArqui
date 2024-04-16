@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
+@CrossOrigin
 public class EmployeeController {
 
     @Autowired
