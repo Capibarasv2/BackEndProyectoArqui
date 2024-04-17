@@ -1,6 +1,8 @@
 package com.capibaras.bottomline.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,8 +12,10 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name="employees")
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@Table(name="employees")
 public class Employee implements Serializable {
 
     @Id

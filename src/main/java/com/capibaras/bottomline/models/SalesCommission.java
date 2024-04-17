@@ -23,6 +23,4 @@ public class SalesCommission {
     @JoinColumn(name="transaction_id")
     private Transaction transaction;
 
-
-
 }
