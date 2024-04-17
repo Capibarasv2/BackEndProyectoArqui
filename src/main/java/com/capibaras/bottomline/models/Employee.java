@@ -1,12 +1,13 @@
 package com.capibaras.bottomline.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import jakarta.validation.constraints.Email;
 
 @Data
 @Entity
@@ -17,7 +18,9 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String full_name;
+
     private String email;
     private String phone_number;
     private String address;
@@ -27,14 +30,9 @@ public class Employee implements Serializable {
     private float salary;
     private Date hire_date;
 
-    @OneToMany (mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Payroll> payrolls;
 
-    @OneToMany (mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<SalesCommission> salesCommissions;
-
-
-
-
-
 }
