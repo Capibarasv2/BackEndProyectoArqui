@@ -14,15 +14,13 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="employees")
+@Table(name="employee")
 public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private Long id;
     private String full_name;
-
     private String email;
     private String phone_number;
     private String address;
@@ -33,8 +31,10 @@ public class Employee implements Serializable {
     private Date hire_date;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Payroll> payrolls;
+    private Set<Payroll> payroll;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<SalesCommission> salesCommissions;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
 }

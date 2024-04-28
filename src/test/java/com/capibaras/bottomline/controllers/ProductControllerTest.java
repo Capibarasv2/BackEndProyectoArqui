@@ -87,7 +87,7 @@ public class ProductControllerTest {
         // Arrange
         Long productId = 1L;
         Product existingProduct = new Product();
-        existingProduct.setId(Math.toIntExact(productId));
+        existingProduct.setId(productId);
         existingProduct.setName("Old Name");
 
         Product updatedInfo = new Product();

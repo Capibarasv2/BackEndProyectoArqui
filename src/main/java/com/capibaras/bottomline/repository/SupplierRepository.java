@@ -1,9 +1,9 @@
 package com.capibaras.bottomline.repository;
 
-import com.capibaras.bottomline.models.SalesCommission;
+import com.capibaras.bottomline.models.Supplier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SalesCommissionRepository extends JpaRepository<SalesCommission,Integer> {
+public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 }

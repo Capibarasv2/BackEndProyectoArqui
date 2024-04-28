@@ -1,6 +1,5 @@
 package com.capibaras.bottomline.services;
 
-import com.capibaras.bottomline.models.SalesCommission;
 import com.capibaras.bottomline.models.Transaction;
 import com.capibaras.bottomline.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

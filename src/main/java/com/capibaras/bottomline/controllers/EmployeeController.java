@@ -22,7 +22,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee findById(@PathVariable int id) {
+    public Employee findById(@PathVariable Long id) {
         Optional<Employee> employeeOptional = employeeService.findById(id);
         return employeeOptional.orElse(null);
     }
@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/update/{id}")
-    public Employee update(@PathVariable int id, @RequestBody Employee employee) {
+    public Employee update(@PathVariable Long id, @RequestBody Employee employee) {
         Optional<Employee> existingEmployeeOptional = employeeService.findById(id);
         if (existingEmployeeOptional.isPresent()) {
             Employee existingEmployee = existingEmployeeOptional.get();
@@ -46,15 +46,14 @@ public class EmployeeController {
             existingEmployee.setPostal_code(employee.getPostal_code());
             existingEmployee.setSalary(employee.getSalary());
             existingEmployee.setHire_date(employee.getHire_date());
-            existingEmployee.setPayrolls(employee.getPayrolls());
-            existingEmployee.setSalesCommissions(employee.getSalesCommissions());
+            existingEmployee.setPayroll(employee.getPayroll());
             return employeeService.save(existingEmployee);
         }
         return null;
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Long id) {
         employeeService.deleteById(id);
     }
 

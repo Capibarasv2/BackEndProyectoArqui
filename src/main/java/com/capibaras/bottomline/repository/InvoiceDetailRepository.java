@@ -1,9 +1,9 @@
 package com.capibaras.bottomline.repository;
 
-import com.capibaras.bottomline.models.Invoice;
+import com.capibaras.bottomline.models.InvoiceDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
+public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail, Long> {
 }

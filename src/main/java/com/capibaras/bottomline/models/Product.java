@@ -17,7 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
     private String description;
@@ -29,26 +29,11 @@ public class Product {
     private String product_thumbnail;
     private String product_state;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_vendors",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "vendor_id"))
-    Set<Vendor> vendor_for_product;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<InvoiceDetail> invoiceDetails;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_customers",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id"))
-    Set<Customer> customer_for_product;
-
-    @ManyToMany
-    @JoinTable(
-            name = "product_invoices",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "invoice_id"))
-    Set<Invoice> invoices_for_product;
-
+    @ManyToOne
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplier;
 
 }

@@ -12,12 +12,12 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "vendors")
-public class Vendor {
+@Entity(name = "supplier")
+public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String enterprise_name;
     private String contact_name;
     private String contact_telephone;
@@ -27,13 +27,8 @@ public class Vendor {
     private String country;
     private String postal_code;
 
-    @ManyToMany(mappedBy = "vendor_for_product")
-    Set<Product> products_selled_by_vendor;
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Product> products;
 
-    @OneToMany(cascade =
-            CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true,
-            mappedBy = "vendor")
-    private Set<Invoice> invoices_for_vendor;
+
 }

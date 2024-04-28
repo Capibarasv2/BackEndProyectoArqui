@@ -43,10 +43,10 @@ class EmployeeControllerTests {
     @Test
     void testFindById() throws Exception {
         Employee employee = new Employee();
-        employee.setId(1);
+        employee.setId(1L);
         employee.setFull_name("John Doe");
 
-        when(employeeService.findById(1)).thenReturn(Optional.of(employee));
+        when(employeeService.findById(1L)).thenReturn(Optional.of(employee));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/employees/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -71,14 +71,14 @@ class EmployeeControllerTests {
     @Test
     void testUpdate() throws Exception {
         Employee existingEmployee = new Employee();
-        existingEmployee.setId(1);
+        existingEmployee.setId(1L);
         existingEmployee.setFull_name("John Doe");
 
         Employee updatedEmployee = new Employee();
-        updatedEmployee.setId(1);
+        updatedEmployee.setId(1L);
         updatedEmployee.setFull_name("Jane Doe");
 
-        when(employeeService.findById(1)).thenReturn(Optional.of(existingEmployee));
+        when(employeeService.findById(1L)).thenReturn(Optional.of(existingEmployee));
         when(employeeService.save(any(Employee.class))).thenReturn(updatedEmployee);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/employees/update/1")
@@ -96,7 +96,7 @@ class EmployeeControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.delete("/employees/delete/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        verify(employeeService, times(1)).deleteById(1);
+        verify(employeeService, times(1)).deleteById(1L);
     }
 
     @Test

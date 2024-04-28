@@ -14,15 +14,12 @@ public class Payroll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private Date payment_date;
     private Float amount;
 
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
-
-
-
 
 }
