@@ -8,16 +8,12 @@
 
 name: Java CI with Maven
 
-on:
-  push:
-    branches: [ release ]
-  pull_request:
-    branches: [ release ]
+on: push
 
 jobs:
   build:
 
-    runs-on: self-hosted, qa
+    runs-on: [self-hosted, qa]
 
     steps:
 
