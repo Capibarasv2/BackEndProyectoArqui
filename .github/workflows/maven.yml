@@ -6,20 +6,32 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Deployment Workflow BottomLine
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - main
+      - release
 
 jobs:
-  build:
-
-    runs-on: self-hosted
+  deploy:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - branch: main
+            runner: self-hosted, prod
+          - branch: release
+            runner: self-hosted, QA
 
     steps:
+
+    - name: Change ENV VARIABLES
+      run: |
+        $env:DATABASE_URL="10.43.100.194:33061"
+        $env:DATABASE_USERNAME="root"
+        $env:DATABASE_PASSWORD="secret"
 
     - uses: actions/checkout@v3
     - name: Set up JDK 17
