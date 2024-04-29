@@ -1,8 +1,12 @@
 # Usamos una imagen base oficial de Maven con Java incluido
-FROM maven:3.8.4-openjdk-11
+FROM maven:3-openjdk-17
 
 # Directorio de trabajo dentro del contenedor
 WORKDIR /app
+
+ENV DATABASE_URL="jdbc:mysql://10.43.100.194:33061/BottomLine"
+ENV DATABASE_USERNAME="root"
+ENV DATABASE_PASSWORD="secret"
 
 # Copiamos el archivo pom.xml y los archivos de código fuente local al directorio de trabajo del contenedor
 COPY pom.xml ./
@@ -19,4 +23,4 @@ RUN mvn package -DskipTests
 EXPOSE 8080
 
 # Comando para ejecutar la aplicación
-CMD ["java", "-jar", "target/nombre-de-tu-app.jar"]
+CMD ["java", "-jar", "target/bottomline-0.0.1-SNAPSHOT.jar"]
