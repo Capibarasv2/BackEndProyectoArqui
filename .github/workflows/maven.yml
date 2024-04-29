@@ -19,7 +19,7 @@ jobs:
     
     - name: Change ENV VARIABLES
       run: |
-        $env:DATABASE_URL="10.43.100.194:33061"
+        $env:DATABASE_URL="10.43.100.194:33061/BottomLine"
         $env:DATABASE_USERNAME="root"
         $env:DATABASE_PASSWORD="secret"
 
