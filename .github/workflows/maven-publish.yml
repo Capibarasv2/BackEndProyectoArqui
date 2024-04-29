@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted, QA
+    runs-on: self-hosted, qa
 
     steps:
       - name: Change ENV VARIABLES
