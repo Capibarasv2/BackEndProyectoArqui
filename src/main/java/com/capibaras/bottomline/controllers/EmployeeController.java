@@ -1,8 +1,10 @@
 package com.capibaras.bottomline.controllers;
 
+import com.capibaras.bottomline.dtos.EmployeeDTO;
 import com.capibaras.bottomline.models.Employee;
 import com.capibaras.bottomline.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,29 +30,16 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public Employee create(@RequestBody Employee employee) {
+    public Employee create(@RequestBody EmployeeDTO employee) {
         return employeeService.save(employee);
     }
 
     @PutMapping("/update/{id}")
-    public Employee update(@PathVariable Long id, @RequestBody Employee employee) {
-        Optional<Employee> existingEmployeeOptional = employeeService.findById(id);
-        if (existingEmployeeOptional.isPresent()) {
-            Employee existingEmployee = existingEmployeeOptional.get();
-            existingEmployee.setFull_name(employee.getFull_name());
-            existingEmployee.setEmail(employee.getEmail());
-            existingEmployee.setPhone_number(employee.getPhone_number());
-            existingEmployee.setAddress(employee.getAddress());
-            existingEmployee.setCity(employee.getCity());
-            existingEmployee.setCountry(employee.getCountry());
-            existingEmployee.setPostal_code(employee.getPostal_code());
-            existingEmployee.setSalary(employee.getSalary());
-            existingEmployee.setHire_date(employee.getHire_date());
-            existingEmployee.setPayroll(employee.getPayroll());
-            return employeeService.save(existingEmployee);
-        }
-        return null;
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDto) {
+        Employee updatedEmployee = employeeService.update(id, employeeDto);
+        return ResponseEntity.ok(updatedEmployee);
     }
+
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {

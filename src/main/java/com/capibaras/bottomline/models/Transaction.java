@@ -15,7 +15,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date transaction_date;
+    private String transaction_date;
     private String transaction_type;
     private String payment_method;
     private String card_type;

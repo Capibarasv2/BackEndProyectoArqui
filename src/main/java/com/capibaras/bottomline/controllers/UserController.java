@@ -1,6 +1,7 @@
 package com.capibaras.bottomline.controllers;
 
 import com.capibaras.bottomline.models.User;
+import com.capibaras.bottomline.dtos.UserDTO;
 import com.capibaras.bottomline.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-    }
-
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -40,16 +35,27 @@ public class UserController {
         }
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDto) {
+        User createdUser = userService.createUser(userDto);
+        return ResponseEntity.ok(createdUser);
+    }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
-        User updatedUser = userService.updateUser(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDto) {
+        User updatedUser = userService.updateUser(id, userDto);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<Boolean> verifyUser(@RequestParam String email, @RequestParam String password) {
+        boolean userExists = userService.verifyUser(email, password);
+        return ResponseEntity.ok(userExists);
     }
 }

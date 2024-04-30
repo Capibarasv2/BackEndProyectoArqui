@@ -28,7 +28,7 @@ public class Employee implements Serializable {
     private String country;
     private String postal_code;
     private float salary;
-    private Date hire_date;
+    private String hire_date;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Payroll> payroll;

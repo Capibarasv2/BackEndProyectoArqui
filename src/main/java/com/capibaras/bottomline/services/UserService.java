@@ -1,5 +1,7 @@
 package com.capibaras.bottomline.services;
 
+import com.capibaras.bottomline.dtos.UserDTO;
+import com.capibaras.bottomline.models.Role;
 import com.capibaras.bottomline.models.User;
 import com.capibaras.bottomline.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -12,13 +14,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final RoleService roleService;
+
+    public UserService(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleService = roleService;
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -28,17 +31,30 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User updateUser(User user) {
-        Optional<User> existingUser = userRepository.findById(user.getId());
-        if (existingUser.isPresent()) {
-            User updatedUser = existingUser.get();
-            updatedUser.setEmail(user.getEmail());
-            updatedUser.setPassword(user.getPassword());
-            updatedUser.setRole(user.getRole());
-            return userRepository.save(updatedUser);
-        } else {
-            throw new RuntimeException("User with ID " + user.getId() + " not found");
-        }
+    public User createUser(UserDTO userDto) {
+        User user = new User();
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+
+        Role role = roleService.getRoleById(userDto.getRole_id())
+                .orElseThrow(() -> new RuntimeException("Role not found with id: " + userDto.getRole_id()));
+        user.setRole(role);
+
+        return userRepository.save(user);
+    }
+
+    public User updateUser(Long id, UserDTO userDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+
+        Role role = roleService.getRoleById(userDto.getRole_id())
+                .orElseThrow(() -> new RuntimeException("Role not found with id: " + userDto.getRole_id()));
+        user.setRole(role);
+
+        return userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
@@ -47,5 +63,9 @@ public class UserService {
 
     public Long countUsers() {
         return userRepository.count();
+    }
+
+    public boolean verifyUser(String email, String password) {
+        return userRepository.existsByEmailAndPassword(email, password);
     }
 }

@@ -59,7 +59,7 @@ class EmployeeControllerTests {
         Employee employee = new Employee();
         employee.setFull_name("Jane Doe");
 
-        when(employeeService.save(any(Employee.class))).thenReturn(employee);
+        //when(employeeService.save(any(Employee.class))).thenReturn(employee);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/employees/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -79,7 +79,7 @@ class EmployeeControllerTests {
         updatedEmployee.setFull_name("Jane Doe");
 
         when(employeeService.findById(1L)).thenReturn(Optional.of(existingEmployee));
-        when(employeeService.save(any(Employee.class))).thenReturn(updatedEmployee);
+        //when(employeeService.save(any(Employee.class))).thenReturn(updatedEmployee);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/employees/update/1")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -15,7 +15,7 @@ public class Payroll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date payment_date;
+    private String payment_date;
     private Float amount;
 
     @ManyToOne
