@@ -18,13 +18,13 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<Role>> getAllRoles() {
         List<Role> roles = roleService.getAllRoles();
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Role> getRoleById(@PathVariable Long id) {
         Optional<Role> role = roleService.getRoleById(id);
         if (role.isPresent()) {

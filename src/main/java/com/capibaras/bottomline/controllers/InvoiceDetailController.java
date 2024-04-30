@@ -18,13 +18,13 @@ public class InvoiceDetailController {
     @Autowired
     private InvoiceDetailService invoiceDetailService;
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<InvoiceDetail>> getAllInvoiceDetails() {
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.getAllInvoiceDetails();
         return new ResponseEntity<>(invoiceDetails, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<InvoiceDetail> getInvoiceDetailById(@PathVariable Long id) {
         Optional<InvoiceDetail> invoiceDetail = invoiceDetailService.getInvoiceDetailById(id);
         if (invoiceDetail.isPresent()) {

@@ -18,19 +18,19 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Supplier> createSupplier(@RequestBody Supplier supplier) {
         Supplier createdSupplier = supplierService.createSupplier(supplier);
         return new ResponseEntity<>(createdSupplier, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<Supplier>> getAllSuppliers() {
         List<Supplier> suppliers = supplierService.getAllSuppliers();
         return new ResponseEntity<>(suppliers, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id) {
         Optional<Supplier> supplier = supplierService.getSupplierById(id);
         if (supplier.isPresent()) {
@@ -40,14 +40,14 @@ public class SupplierController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Supplier> updateSupplier(@PathVariable Long id, @RequestBody Supplier supplier) {
         supplier.setId(id); // Set the ID from the path variable for update
         Supplier updatedSupplier = supplierService.updateSupplier(supplier);
         return new ResponseEntity<>(updatedSupplier, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSupplier(@PathVariable Long id) {
         supplierService.deleteSupplier(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

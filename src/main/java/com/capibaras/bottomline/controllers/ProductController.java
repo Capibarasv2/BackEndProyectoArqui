@@ -16,12 +16,12 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/index")
+    @GetMapping("/getAll/index")
     public List<Product> index() {
         return productService.listProducts();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public Product findById(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         return productOptional.orElse(null);

@@ -16,12 +16,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/index")
+    @GetMapping("/getAll")
     public List<Employee> index(){
         return employeeService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public Employee findById(@PathVariable Long id) {
         Optional<Employee> employeeOptional = employeeService.findById(id);
         return employeeOptional.orElse(null);

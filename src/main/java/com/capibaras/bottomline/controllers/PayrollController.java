@@ -18,19 +18,19 @@ public class PayrollController {
     @Autowired
     private PayrollService payrollService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Payroll> createPayroll(@RequestBody Payroll payroll) {
         Payroll createdPayroll = payrollService.createPayroll(payroll);
         return new ResponseEntity<>(createdPayroll, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<Payroll>> getAllPayroll() {
         List<Payroll> payrolls = payrollService.getAllPayroll();
         return new ResponseEntity<>(payrolls, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Payroll> getPayrollById(@PathVariable Long id) {
         Optional<Payroll> payroll = payrollService.getPayrollById(id);
         if (payroll.isPresent()) {
@@ -40,14 +40,14 @@ public class PayrollController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Payroll> updatePayroll(@PathVariable Long id, @RequestBody Payroll payroll) {
         payroll.setId(id);
         Payroll updatedPayroll = payrollService.updatePayroll(payroll);
         return new ResponseEntity<>(updatedPayroll, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePayroll(@PathVariable Long id) {
         payrollService.deletePayroll(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
