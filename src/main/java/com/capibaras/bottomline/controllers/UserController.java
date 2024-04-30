@@ -58,4 +58,14 @@ public class UserController {
         boolean userExists = userService.verifyUser(email, password);
         return ResponseEntity.ok(userExists);
     }
+
+    @GetMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestParam String email, @RequestParam String password) {
+        Optional<User> user = userService.convertToDTO(email, password);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

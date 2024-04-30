@@ -5,7 +5,7 @@ import com.capibaras.bottomline.models.Role;
 import com.capibaras.bottomline.models.User;
 import com.capibaras.bottomline.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
+import com.capibaras.bottomline.dtos.UserDTO;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,4 +68,11 @@ public class UserService {
     public boolean verifyUser(String email, String password) {
         return userRepository.existsByEmailAndPassword(email, password);
     }
+
+    /* usar UserDTO para retornar o usuário que se acabou de logar */
+    public Optional<User> convertToDTO(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
+
+
 }
