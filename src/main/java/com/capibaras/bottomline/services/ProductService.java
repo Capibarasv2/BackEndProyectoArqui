@@ -17,8 +17,10 @@ public class ProductService {
     private SupplierService supplierService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, SupplierService supplierService) {
         this.productRepository = productRepository;
+        this.supplierService = supplierService;
+
     }
 
     public List<Product> listProducts(){
