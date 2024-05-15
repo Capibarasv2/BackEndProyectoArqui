@@ -10,20 +10,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "invoice_detail")
-public class InvoiceDetail {
+@Entity(name = "service")
+public class ServiceB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int quantity;
-    private float price_per_unit;
-    private float total;
+    private String nombre;
+    private boolean activo;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "invoice_id", nullable = false)
-    private Invoice invoice;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

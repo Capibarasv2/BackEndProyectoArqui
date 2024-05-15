@@ -1,9 +1,11 @@
 package com.capibaras.bottomline.services;
 
 import com.capibaras.bottomline.dtos.UserDTO;
+import com.capibaras.bottomline.models.Employee;
 import com.capibaras.bottomline.models.Role;
 import com.capibaras.bottomline.models.User;
 import com.capibaras.bottomline.repository.UserRepository;
+import com.capibaras.bottomline.requests.UserRequest;
 import org.springframework.stereotype.Service;
 import com.capibaras.bottomline.dtos.UserDTO;
 import java.util.List;
@@ -16,9 +18,12 @@ public class UserService {
 
     private final RoleService roleService;
 
-    public UserService(UserRepository userRepository, RoleService roleService) {
+    private final EmployeeService employeeService;
+
+    public UserService(UserRepository userRepository, RoleService roleService, EmployeeService employeeService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.employeeService = employeeService;
     }
 
 
@@ -74,5 +79,23 @@ public class UserService {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
+
+    public User createUserByEmployee(Long id, UserRequest userRequest) {
+
+        Employee employee = employeeService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+
+        Role role = roleService.getRoleById(2L)
+                .orElseThrow(() -> new RuntimeException("Role not found with id: "+2L));
+        User user = new User();
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(userRequest.getPassword());
+        user.setName(userRequest.getName());
+        user.setLastName(userRequest.getLastName());
+        user.setEmployee(employee);
+        user.setRole(role);
+
+        return userRepository.save(user);
+    }
 
 }

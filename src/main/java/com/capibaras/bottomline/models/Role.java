@@ -14,16 +14,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity(name = "roles")
 public class Role {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String roleName;
     private String accesibleModules;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<User> users;
-
-
-
 }

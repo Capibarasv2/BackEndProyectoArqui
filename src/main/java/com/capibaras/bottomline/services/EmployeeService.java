@@ -5,6 +5,7 @@ import com.capibaras.bottomline.models.Employee;
 import com.capibaras.bottomline.models.User;
 import com.capibaras.bottomline.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,17 +18,15 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    private UserService userService;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, UserService userService) {
+    public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.userService = userService;
     }
 
     @Transactional(readOnly = true)
     public List<Employee> findAll(){
-        return (List<Employee>) employeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
     public Optional<Employee> findById(Long id) {
@@ -58,11 +57,6 @@ public class EmployeeService {
         existingEmployee.setPostal_code(employeeDto.getPostal_code());
         existingEmployee.setSalary(employeeDto.getSalary());
         existingEmployee.setHire_date(employeeDto.getHire_date());
-
-        User user = userService.getUserById(employeeDto.getUser_id())
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + employeeDto.getUser_id()));
-
-        existingEmployee.setUser(user);
 
         return employeeRepository.save(existingEmployee);
     }

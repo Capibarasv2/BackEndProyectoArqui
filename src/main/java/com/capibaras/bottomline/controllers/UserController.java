@@ -2,6 +2,7 @@ package com.capibaras.bottomline.controllers;
 
 import com.capibaras.bottomline.models.User;
 import com.capibaras.bottomline.dtos.UserDTO;
+import com.capibaras.bottomline.requests.UserRequest;
 import com.capibaras.bottomline.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,4 +69,11 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/createByEmployee")
+    public ResponseEntity<User> createUserByEmployee(@RequestParam Long id,@RequestBody UserRequest userRequest) {
+        User createdUser = userService.createUserByEmployee(id,userRequest);
+        return ResponseEntity.ok(createdUser);
+    }
+
 }
